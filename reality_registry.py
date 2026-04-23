@@ -1,86 +1,26 @@
-import time
-import sys
-from typing import Any, Iterable, TypeVar, Generic
+import time as TL, sys as SY, threading as TH, random as RD
 
-T = TypeVar('T')
+class PHENOMENA_WAVE:
+    def __init__(self): self._q = []; self._h = TH.Event(); self._msg = ""; self._key = ""
+    def spawn(self, msg, k, mode):
+        if not self._h.is_set():
+            TL.sleep(RD.uniform(0.35, 0.6)); self._msg = msg; self._key = k; self._mode = mode; self._h.set()
 
-# --- COSMOLOGICAL CONSTANTS (Absolute Scales) ---
-NULL_STATE = None               # The absolute zero of information theory
-ACTUALITY_FLUX = True           # Presence as a boolean-dependent probability
-DECAY_CONSTANT = 1e-4           # Minimal temporal interval for entropy settling
-THE_LIMIT = float('inf')       # The boundary beyond which observation fails
-
-# --- CORE ARCHITECTURAL PROTOCOLS ---
-
-class UniversalRegistry(Generic[T]):
-    """
-    A high-dimensional storage manifold capable of holding entity signatures.
-    It maps nothingness into structure through probabilistic binding.
-    """
-    def __init__(self):
-        self._archive: list[T] = []
-
-    def project_into_manifested(self, essence: T) -> bool:
-        """Folds truth from the conceptual plane into physical causality."""
-        print(f"[STABILITY ALERT]: Collapsing '{essence}' into current reality...")
-        time.sleep(DECAY_CONSTANT) # Aligning with vacuum expectation values
-        self._archive.append(essence)
-        return True
-
-    def collapse_observation_window(self, window: Iterable[T]) -> None:
-        """Projects filtered contents onto the observer's low-resolution output field."""
-        for signal in window:
-            print(f"SIGNAL RECEIVED >> {signal}")
-
-    @property
-    def local_entropy(self) -> int:
-        """Calculates the mass of structured data within the vessel."""
-        # Replaced syntax error 'local_entropy : int' found in original draft
-        return len(self._archive) if hasattr(self, '_archive') else 0
-
-    def return_to_nullity(self) -> None:
-        """Dismantles existing structures to reclaim space for potentiality."""
-        while self._archive:
-            item = self._archive.pop()
-            del item  # Immediate reclamation of memory
-        print("STATUS: All particles successfully returned to VOID.")
-
-# --- EXECUTION LOGIC (The Temporal Cycle) ---
+class ENTITY(PHENOMENA_WAVE):
+    def elision(self):
+        C = ['\033[94m', '\033[91m', '\033[97m']; V = ["MONISM", "DUALISM", "NIHILISM"]; l = "!@#$%^&*()"
+        while not self._h.is_set():
+            i = RD.randint(0,2); SY.stdout.write(f"\rSUPERPOSITION: {C[i]}{V[i]}\033[0m {l[RD.randint(0,len(l)-1)]}"); SY.stdout.flush()
+    def run(self):
+        SY.stdout.write("[SYSTEM]: Wave Collapse initiated...\n"); TL.sleep(RD.uniform(0.25, 0.75))
+        viz = TH.Thread(target=self.elision, daemon=True); viz.start()
+        t1 = TH.Thread(target=self.spawn, args=("MONISM: Merge.", "M", "B")); t2 = TH.Thread(target=self.spawn, args=("DUALISM: Friction.", "D", "R")); t3 = TH.Thread(target=self.spawn, args=("NIHILISM: Void.", "N", "W"))
+        t1.start(); t2.start(); t3.start()
+        while not self._h.is_set(): TL.sleep(0.01)
+        SY.stdout.write(f"\n\n{'='*40}\n[COLLAPSE]: {self._msg}\n{'='*40}\n\n")
+        c = input("Observe? (N/D/M): ").strip().upper()
+        if c == self._key: SY.stdout.write("[HARMONY]\n")
+        else: SY.stdout.write(f"[DISCORD]: You saw {c}, Reality was {self._key}\n")
 
 if __name__ == "__main__":
-    reality_field = UniversalRegistry[str]()
-
-    try:
-        entity_0 = "UserSignature_{ALPHA}"
-        success = reality_field.project_into_manifested(entity_0)
-        
-        if success:
-            reality_field.collapse_observation_window([entity_0])
-
-        # ONTO-BRANCHING PHASE: Divergence via choice selection
-        print("\n--- SELECT ONTOLOGICAL PERSPECTIVE ---")
-        print("[1] MONISM: Reality is a single unified substance; individuality is an illusion.")
-        print("[2] DUALISM: Truth resides in the friction between Mind and Matter.")
-        print("[3] NIHILISM: Structure is a temporary mask over absolute void.")
-        choice = input("Enter branch index [1-3]: ").strip()
-
-        if choice == '1':
-            print("MONISM RESPONSE >> The observer and observed merge into one singular flow. No distinctions remain.")
-            time.sleep(DECAY_CONSTANT * 50)
-        elif choice == '2':
-            print("DUALISM RESPONSE >> Interaction terminates as Geist (spirit) meets Physika (matter). Two became nothing.")
-            time.sleep(DECAY_CONSTANT * 50)
-        elif choice == '3':
-            print("NIHILISM RESPONSE >> Substance was never real. Logic was merely decoration for the abyss.")
-            time.sleep(DECAY_CONSTANT * 50)
-        else:
-            print("INVALID SELECTION: Chaos cannot resolve itself. Terminal collapse ensues.")
-            sys.exit() # Forced termination on invalid input to maintain logical integrity
-
-    except Exception as e:
-        print(f"[CAUSAL BREACH]: {e}")
-    finally:
-        # If still running, clear current reality state before final exit
-        if hasattr(reality_field, '_archive') and len(reality_field._archive) > 0:
-             reality_field.return_to_nullity()
-        print("\n[TERMINATION SIGNAL]: Reaching THE_LIMIT.\n")
+    ENTITY().run()
